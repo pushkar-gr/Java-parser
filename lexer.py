@@ -8,6 +8,9 @@ reserved = {
     'return': 'RETURN',
     'int': 'INT',
     'void': 'VOID',
+    'private': 'PRIVATE',
+    'public' : 'PUBLIC',
+    'static' : 'STATIC',
 }
 
 tokens = [
@@ -33,7 +36,7 @@ t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_SEMICOLON = r';'
 t_AND = '&&'
-t_OR = '\|\|'
+t_OR = r'\|\|'
 t_COMMA = r'\,'
 
 def t_ID(t):
