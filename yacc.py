@@ -124,7 +124,7 @@ def p_exp_(p):
 
 def p_forloops(p):
     """forloops : FOR LPAREN expression condition SEMICOLON exp RPAREN LBRACE blablablank RBRACE"""
-    p[0] = f"for ({p[3]}; {p[4]}; {p[6]})\n{p[8]} {p[9]} {p[10]}"
+    p[0] = f"for ({p[3]} {p[4]}; {p[6]})\n{p[8]} {p[9]} {p[10]}"
 
 def p_whileloops(p):
     """whileloops : WHILE LPAREN condition RPAREN LBRACE blablablank RBRACE"""
