@@ -11,6 +11,8 @@ reserved = {
     'private': 'PRIVATE',
     'public' : 'PUBLIC',
     'static' : 'STATIC',
+    'new' : 'NEW',
+    'enum': 'ENUM',
 }
 
 tokens = [
@@ -26,8 +28,10 @@ tokens = [
     'ALG',
     'AND',
     'OR',
-    'COMMA'
-    ] + list(reserved.values())
+    'COMMA',
+    'LBRACKET',
+    'RBRACKET'
+] + list(reserved.values())
 
 t_ASSIGN = r'='
 t_LPAREN = r'\('
@@ -38,6 +42,8 @@ t_SEMICOLON = r';'
 t_AND = '&&'
 t_OR = r'\|\|'
 t_COMMA = r'\,'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -50,7 +56,7 @@ def t_NUMBER(t):
     return t
 
 def t_COMPARE(t):
-    r'==|<=|>=|!=|>|<'
+    r'== | <= | >= | != | > | <'
     return t
 
 def t_ALG(t):

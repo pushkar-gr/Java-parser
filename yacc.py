@@ -7,6 +7,8 @@ def p_start(p): #start state
     | function
     | forloops
     | whileloops
+    | array_declaration
+    | enum_declaration
     """
     p[0] = p[1]
 
@@ -15,8 +17,34 @@ def p_empty(p):
     # p[0] = " "
     pass
 
+def p_enum_declaration(p):
+    """enum_declaration : ENUM ID LBRACE enum_constants SEMICOLON RBRACE"""
+    p[0] = f"enum {p[2]} {{ {p[4]} }};"
+
+def p_enum_constants(p):
+    """enum_constants : enum_constants COMMA ID
+                      | ID"""
+    if len(p) == 2:
+        p[0] = p[1]  # Single constant
+    else:
+        p[0] = f"{p[1]}, {p[3]}"  # Add constant to the list
+
+def p_array_type(p):
+    """array_type : type LBRACKET RBRACKET"""
+    p[0] = f"{p[1]}[]"
+
+def p_array_declaration(p):
+    """array_declaration : array_type ID ASSIGN new_array SEMICOLON"""
+    p[0] = f"{p[1]} {p[2]} = {p[4]};"
+
+def p_new_array(p):
+    """new_array : NEW type LBRACKET NUMBER RBRACKET"""
+    p[0] = f"new {p[2]}[{p[4]}]"
+
 def p_type(p): #data types
-    """type : INT"""
+    """type : INT
+    | VOID
+    """
     p[0] = p[1]
 
 def p_expression(p): #expression for variable declaration (used in loops)
@@ -105,7 +133,7 @@ def p_priv_pub_stat(p):
         p[0] = "private"
 
 def p_function(p): #function (datatype name(parameters){body})
-    """function : priv_pub_stat type blabla LPAREN parameters RPAREN LBRACE blablablank RETURN blabla RBRACE"""
+    """function : priv_pub_stat type blabla LPAREN parameters RPAREN LBRACE blablablank RETURN blablablank RBRACE"""
     p[0] = f"{p[1]} {p[2]} {p[3]} ({p[5]})\n{p[7]}\n{p[8]}\n{p[9]} {p[10]}\n{p[11]}"
 
 
